@@ -1,9 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const process = require("process");
-console.log(fs);
+//console.log(fs);
 
 //verificar que la ruta es valida
+//
 const validateRoute = (pathRoute) => fs.existsSync(pathRoute);
 
 //valida si es absoluta
@@ -39,18 +40,19 @@ const RecursiveFunction = (pathRoutes) => {
     contentRoute.forEach((routes) => {
       console.log(
         (arrReadMd = arrReadMd.concat(
-          RecursiveFunction(`${pathRoutes}/${routes}`)
+          RecursiveFunction(`${pathRoutes}/${routes}`) //************
         ))
       ); //concatenar la ruta de los directorios para que me los devuelva en un arr
     });
   }
+  console.log(arrReadMd); //NO ME MUESTRA ESTE ARR
   return arrReadMd;
 };
 
-//Leer contenido de archivos md
+// //Leer contenido de archivos md
 const readContentMd = (pathRoute) => {
   return new Promise((resolve, reject) => {
-    fs.readFile(pathRoute,"utf-8", (error, data) => {
+    fs.readFile(pathRoute, "utf-8", (error, data) => {
       if (error) {
         reject("hubo un error");
       } else {
@@ -60,9 +62,10 @@ const readContentMd = (pathRoute) => {
   });
 };
 
-readContentMd('README.md').then((data) => {
- console.log(data) 
- 
-}).catch((error) => {
-  console.log(error)
-}) 
+readContentMd("README.md")
+  .then((data) => {
+    //console.log(data);
+  })
+  .catch((error) => {
+    //console.log(error);
+  });
