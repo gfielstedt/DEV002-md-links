@@ -31,7 +31,7 @@ const validateRouteMd = (pathRoute) =>
   path.extname(pathRoute) === ".md" ? true : false; //exname :devuelve la extensión de una ruta de archivo.
 
 //implementando la recursividad // buscando arch md
-const RecursiveFunction = (pathRoute) => {
+const recursiveFunction = (pathRoute) => {
   let arrReadMd = [];
   if (validateRouteMd(pathRoute)) {
     arrReadMd.push(pathRoute); //se llena si la ruta tiene ext md si no es un directory
@@ -41,7 +41,7 @@ const RecursiveFunction = (pathRoute) => {
       //rote es el elemt que se esta iterando del arr de string qur me devolv contenRoute
       console.log(
         (arrReadMd = arrReadMd.concat(
-          RecursiveFunction(`${pathRoute}/${route}`)
+          recursiveFunction(`${pathRoute}/${route}`)
         ))
       ); //concatenar la ruta de los directorios para que me los devuelva en un arr
     });
@@ -190,16 +190,18 @@ const brokenLinks = (arrFinalObjet) => {
 //           statusText: "FAIL",
 //         },
 //       ]))
+
 //obtener archivos md //usar ej readme
 const obtenerArchivosMd = (pathRoute) => {
   if (validateRoute(pathRoute)) {
     absoluteRoute(pathRoute);
     convertAbsulute(pathRoute);
   }
-  return RecursiveFunction(pathRoute); // dev un arr con archivos md
+  return recursiveFunction(pathRoute); // dev un arr con archivos md
 };
 
-//obtenerArchivosMd();
+console.log(obtenerArchivosMd('README.md'));
+
 module.exports = {
   obtenerArchivosMd,
   invalidateAllRoutes,
