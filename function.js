@@ -39,27 +39,19 @@ const recursiveFunction = (pathRoute) => {
     const contentRoute = readDirectory(pathRoute); //leer las rutas del directorio e itera el contenido que tiene
     contentRoute.forEach((route) => {
       //rote es el elemt que se esta iterando del arr de string qur me devolv contenRoute
-      console.log(
-        (arrReadMd = arrReadMd.concat(
-          recursiveFunction(`${pathRoute}/${route}`)
-        ))
-      ); //concatenar la ruta de los directorios para que me los devuelva en un arr
+
+      arrReadMd = arrReadMd.concat(recursiveFunction(`${pathRoute}/${route}`));
+      //concatenar la ruta de los directorios para que me los devuelva en un arr
     });
   }
   return arrReadMd;
 };
 
 //Leer contenido de archivos md
-//
 const readContentMd = (pathRoute) => {
   return new Promise((resolve, reject) => {
     fs.readFile(pathRoute, "utf-8", (error, data) => {
-      // un callback es una funcion dentro de otra
-      if (error) {
-        reject("hubo un error"); ////**TAREA URGENTE**
-      } else {
-        resolve(data);
-      }
+      error ? reject("hubo  un error") : resolve(data);
     });
   });
 };
@@ -83,7 +75,6 @@ const invalidateAllRoutes = (pathRoute) => {
         if (arrResultRegEx !== null) {
           // evitar que me devuelva null por eso le pido todo lo que dif
           const arrIterado = arrResultRegEx.map((element) => element); //
-          console.log(arrIterado);
           arrFinalObjet.push({
             href: arrIterado[2], //url de archivo md
             text: arrIterado[1],
@@ -109,9 +100,9 @@ const invalidateAllRoutes = (pathRoute) => {
 const validateAllRoutes = (arrFinalObjet) => {
   // simulando parameter
   return Promise.all(
-    arrFinalObjet.map((element) => {
+  arrFinalObjet.map((element) => {
       //cada objetc es una promesa y all me dev un arr de promise
-      axios
+      return axios
         .get(element.href) // hace peticion para obtener datos //obtener inf de esa url get post put delete
         .then((data) => {
           //data resp de axios big object
@@ -121,7 +112,7 @@ const validateAllRoutes = (arrFinalObjet) => {
             status: data.status, //num
             statusText: data.statusText,
           };
-          console.log(objetcValidateTrue);
+          return objetcValidateTrue;
         })
         .catch((error) => {
           const failObject = {
@@ -129,7 +120,7 @@ const validateAllRoutes = (arrFinalObjet) => {
             status: error.data ? 404 : 404, //consicional abreviada (if)
             statusText: "FAIL",
           };
-          console.log(failObject);
+          return failObject;
         });
     })
   );
@@ -200,12 +191,12 @@ const obtenerArchivosMd = (pathRoute) => {
   return recursiveFunction(pathRoute); // dev un arr con archivos md
 };
 
-console.log(obtenerArchivosMd('README.md'));
+//obtenerArchivosMd("README.md");
 
 module.exports = {
-  obtenerArchivosMd,
-  invalidateAllRoutes,
-  validateAllRoutes,
-  brokenLinks,
-  statsFunction,
+  obtenerArchivosMd, //obtener archivos md
+  invalidateAllRoutes, //validar todo tipo de ruta caso falso
+  validateAllRoutes, //valida todo tipo de ruta //falta en md
+  brokenLinks, //valida link rotos
+  statsFunction, // devuelve estadisticas // falta en md
 };
