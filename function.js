@@ -1,15 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 const process = require("process");
-const axios = require("axios");
+const axios = require("axios"); //npm
 //console.log(fs);
 
 //verificar que la ruta es valida
 //
-const validateRoute = (pathRoute) => fs.existsSync(pathRoute);
+const validateRoute = (pathRoute) => fs.existsSync(pathRoute); //valida si existe una ruta
 
 //valida si es absoluta
-const absoluteRoute = (pathRoute) => path.isAbsolute(pathRoute);
+const absoluteRoute = (pathRoute) => path.isAbsolute(pathRoute); // valida si es absoluta 
 
 //convierte relativa en absoluta
 const convertAbsulute = (pathRoute) => {
@@ -72,16 +72,18 @@ const invalidateAllRoutes = (pathRoute) => {
           /\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+[a-zA-Z0-9!-_$]+)\)/gi; // link que conindan con regEx me los devuelva
         //regEx.exec(data)//devuelve arr con link que cumplan con la expresion reg
         let arrResultRegEx = regEx.exec(data); //devuelve arr iterado new arr
-        if (arrResultRegEx !== null) {
+         while (arrResultRegEx !== null) {
           // evitar que me devuelva null por eso le pido todo lo que dif
-          const arrIterado = arrResultRegEx.map((element) => element); //
+
           arrFinalObjet.push({
-            href: arrIterado[2], //url de archivo md
-            text: arrIterado[1],
+            href: arrResultRegEx[2], //url de archivo md
+            text: arrResultRegEx[1],
             file: pathRoute, //provar con readme
           });
-          resolve(arrFinalObjet);
+          arrResultRegEx = regEx.exec(data);
         }
+        resolve(arrFinalObjet);
+        
       })
       .catch((error) => {
         reject(error);

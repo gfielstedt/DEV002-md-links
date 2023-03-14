@@ -8,8 +8,7 @@ const {
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
-    if (options[0] === undefined && options[1] === undefined) {
-      //se detiene
+    if (options[0] === undefined && options[1] === undefined) { // si no tipea ninguna de las opciones arr arch md
       const pathArr = obtenerArchivosMd(path);
       pathArr.map((element) => {
         //map recibe una funct y la funct recibe un elemento a iterar
@@ -24,7 +23,7 @@ const mdLinks = (path, options) => {
       });
     } else {
       if (
-        (options[0] === "--validate" && options[1] === "--stats") ||
+        (options[0] === "--validate" && options[1] === "--stats") || //condiciones dan sentido a las opciones 
         (options[0] === "--stats" && options[1] === "--validate")
       ) {
         const pathArr2 = obtenerArchivosMd(path);
@@ -39,11 +38,10 @@ const mdLinks = (path, options) => {
         arrMd.map((element) => {
           invalidateAllRoutes(element)
             .then((data) => {
-              validateAllRoutes(data).then((data)=> {
-                console.log(data) 
-                return resolve(data)
-              }
-              );
+              validateAllRoutes(data).then((data) => {
+                console.log(data);
+                return resolve(data);
+              });
             })
             .catch((error) => {
               return reject("TU RUTA ES INVALIDA", error);
