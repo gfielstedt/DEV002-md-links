@@ -49,6 +49,7 @@ const mdLinks = (path, options) => {
         });
       } else if (options[0] === "--stats") {
         const arrMdStast = obtenerArchivosMd(path);
+        console.log(arrMdStast)
         arrMdStast.map((element) => {
           invalidateAllRoutes(element).then((data) => {
             console.log(statsFunction(data));

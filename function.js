@@ -104,8 +104,8 @@ const validateAllRoutes = (arrFinalObjet) => {
   return Promise.all(
   arrFinalObjet.map((element) => {
       //cada objetc es una promesa y all me dev un arr de promise
-      return axios
-        .get(element.href) // hace peticion para obtener datos //obtener inf de esa url get post put delete
+      return axios //lib js desc en npm hace peticiones a un serv recib resp para procesar
+        .get(element.href) // hace peticion para obtener datos //obtener inf de esa url *get post put delete
         .then((data) => {
           //data resp de axios big object
           const objetcValidateTrue = {
@@ -135,7 +135,8 @@ const validateAllRoutes = (arrFinalObjet) => {
 //   },
 // ]);
 
-// pueden haber repetidos//console.log(new Set([10,20,30,'quince', 'ocho', 8,10,'quince'])) //instancia de un modelo existente // set no funciona con lengh si no con size
+// pueden haber repetidos//console.log(new Set([10,20,30,'quince', 'ocho', 8,10,'quince'])) //instancia de un modelo existente 
+// set no funciona con lengh si no con size
 const statsFunction = (arrFinalObjet) => {
   // me va a devolver un arr de links
   const arrLinks = arrFinalObjet.map((element) => element.href);
@@ -193,7 +194,6 @@ const obtenerArchivosMd = (pathRoute) => {
   return recursiveFunction(pathRoute); // dev un arr con archivos md
 };
 
-//obtenerArchivosMd("README.md");
 
 module.exports = {
   obtenerArchivosMd, //obtener archivos md
@@ -202,3 +202,4 @@ module.exports = {
   brokenLinks, //valida link rotos
   statsFunction, // devuelve estadisticas // falta en md
 };
+//fin
