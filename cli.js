@@ -2,7 +2,7 @@
 const mdLinks = require("./md-links");
 const process = require("process");
 
-const pathRoute2 = process.argv[2]; //3er arg ruta
+const pathRoute2 = process.argv[2]; //3er arg ruta //argv es un analizador de argumentos de línea de comandos
 const pathRouteOptions1 = process.argv[3];
 const pathRouteOptions2 = process.argv[4];
 

@@ -9,7 +9,7 @@ const axios = require("axios"); //npm
 const validateRoute = (pathRoute) => fs.existsSync(pathRoute); //valida si existe una ruta
 
 //valida si es absoluta
-const absoluteRoute = (pathRoute) => path.isAbsolute(pathRoute); // valida si es absoluta 
+const absoluteRoute = (pathRoute) => path.isAbsolute(pathRoute); // valida si es absoluta
 
 //convierte relativa en absoluta
 const convertAbsulute = (pathRoute) => {
@@ -72,7 +72,7 @@ const invalidateAllRoutes = (pathRoute) => {
           /\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+[a-zA-Z0-9!-_$]+)\)/gi; // link que conindan con regEx me los devuelva
         //regEx.exec(data)//devuelve arr con link que cumplan con la expresion reg
         let arrResultRegEx = regEx.exec(data); //devuelve arr iterado new arr
-         while (arrResultRegEx !== null) {
+        while (arrResultRegEx !== null) {
           // evitar que me devuelva null por eso le pido todo lo que dif
 
           arrFinalObjet.push({
@@ -83,7 +83,6 @@ const invalidateAllRoutes = (pathRoute) => {
           arrResultRegEx = regEx.exec(data);
         }
         resolve(arrFinalObjet);
-        
       })
       .catch((error) => {
         reject(error);
@@ -102,7 +101,7 @@ const invalidateAllRoutes = (pathRoute) => {
 const validateAllRoutes = (arrFinalObjet) => {
   // simulando parameter
   return Promise.all(
-  arrFinalObjet.map((element) => {
+    arrFinalObjet.map((element) => {
       //cada objetc es una promesa y all me dev un arr de promise
       return axios //lib js desc en npm hace peticiones a un serv recib resp para procesar
         .get(element.href) // hace peticion para obtener datos //obtener inf de esa url *get post put delete
@@ -135,7 +134,7 @@ const validateAllRoutes = (arrFinalObjet) => {
 //   },
 // ]);
 
-// pueden haber repetidos//console.log(new Set([10,20,30,'quince', 'ocho', 8,10,'quince'])) //instancia de un modelo existente 
+// pueden haber repetidos//console.log(new Set([10,20,30,'quince', 'ocho', 8,10,'quince'])) //instancia de un modelo existente
 // set no funciona con lengh si no con size
 const statsFunction = (arrFinalObjet) => {
   // me va a devolver un arr de links
@@ -170,20 +169,22 @@ const brokenLinks = (arrFinalObjet) => {
     broken: brokenArr.length,
   };
 };
-// console.log(brokenLinks([
-//         {
-//           href: "https://es.wikipedia.org/wiki/Markdown/gina",
-//           text: "Markdown",
-//           file: "README.md",
-//           statusText:"FAIL",
-//         },
-//         {
-//           href: "https://es.wikipedia.org/wiki/Markdown/gina",
-//           text: "Markdown",
-//           file: "README.md",
-//           statusText: "FAIL",
-//         },
-//       ]))
+// console.log(
+//   brokenLinks([
+//     {
+//       href: "https://es.wikipedia.org/wiki/Markdown/gina",
+//       text: "Markdown",
+//       file: "README.md",
+//       statusText: "FAIL",
+//     },
+//     {
+//       href: "https://es.wikipedia.org/wiki/Markdown/gina",
+//       text: "Markdown",
+//       file: "README.md",
+//       statusText: "FAIL",
+//     },
+//   ])
+// );
 
 //obtener archivos md //usar ej readme
 const obtenerArchivosMd = (pathRoute) => {
@@ -193,7 +194,6 @@ const obtenerArchivosMd = (pathRoute) => {
   }
   return recursiveFunction(pathRoute); // dev un arr con archivos md
 };
-
 
 module.exports = {
   obtenerArchivosMd, //obtener archivos md

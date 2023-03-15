@@ -24,13 +24,16 @@ const mdLinks = (path, options) => {
     } else {
       if (
         (options[0] === "--validate" && options[1] === "--stats") || //condiciones dan sentido a las opciones 
-        (options[0] === "--stats" && options[1] === "--validate")
+        (options[0] === "--stats" && options[1] === "--validate") //validar abreviatura de options
       ) {
         const pathArr2 = obtenerArchivosMd(path);
         pathArr2.map((element) => {
           invalidateAllRoutes(element).then((data) => {
-            console.log(brokenLinks(data));
-            return resolve(brokenLinks(data));
+            validateAllRoutes(data).then((data)=>{
+              //console.log(data);
+              console.log(brokenLinks(data));
+             return resolve(brokenLinks(data));
+            })  
           });
         });
       } else if (options[0] === "--validate") {
